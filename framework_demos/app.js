@@ -1,0 +1,24 @@
+// app.js
+
+import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor";
+import Essentials from "@ckeditor/ckeditor5-essentials/src/essentials";
+import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
+import Bold from "@ckeditor/ckeditor5-basic-styles/src/bold";
+import Italic from "@ckeditor/ckeditor5-basic-styles/src/italic";
+
+import CKEditorInspector from "@ckeditor/ckeditor5-inspector";
+import { getData } from "@ckeditor/ckeditor5-engine/src/dev-utils/model";
+
+ClassicEditor.create(document.querySelector("#editor"), {
+  plugins: [Essentials, Paragraph, Bold, Italic],
+  toolbar: ["bold", "italic"],
+})
+  .then((editor) => {
+    window.editor = editor;
+    console.log(getData(editor.model));
+    console.log("Editor was initialized", editor);
+    CKEditorInspector.attach(editor);
+  })
+  .catch((error) => {
+    console.error(error.stack);
+  });
